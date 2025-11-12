@@ -50,6 +50,9 @@ config.hide_tab_bar_if_only_one_tab = false
 
 config.audible_bell = 'Disabled'
 
+-- Enable kitty graphics protocol
+config.enable_kitty_graphics = true
+
 config.font_size = 14
 
 -- Default theme

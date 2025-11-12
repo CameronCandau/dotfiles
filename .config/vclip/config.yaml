@@ -9,7 +9,7 @@ rofi:
   use_markup: true
 sources:
   directories:
-  - ~/Veilcat-OSCP-Methodology
+  - ~/OSCP-Methodology
   file_patterns:
   - '*.md'
   - '*.markdown'

@@ -1,0 +1,21 @@
+# Basic Settings
+set hidden        # show hidden files
+set icons         # enable icons (requires nerd font)
+set ignorecase    # case-insensitive search
+set number        # show line numbers
+set relativenumber # relative line numbers (vim-style)
+set drawbox       # draw boxes around panes
+set info size:time # show size and modification time
+
+# Shell settings for safer commands
+set shell sh
+set shellopts '-eu'
+set ifs "\n"
+
+# Preview settings
+set preview true
+set previewer /home/exis/.config/lf/previewer
+set cleaner /home/exis/.config/lf/cleaner
+
+# Update file list automatically
+set period 1
