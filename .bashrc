@@ -115,28 +115,3 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-
-# . "$HOME/.cargo/env"
-
-export PATH="$PATH:/opt/nvim/"
-export EDITOR=nvim
-
-eval "$(starship init bash)"
-
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# Icons for lf file manager
-export LF_ICONS="\
-ln=:\
-or=:\
-tw=t:\
-ow=:\
-st=t:\
-di=:\
-...
-*.opus=\
-*.pdf=\
-"

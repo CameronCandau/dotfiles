@@ -112,7 +112,8 @@ exec_always redshift -PO 2500
 exec_always nohup flameshot &
 
 # Copy-paste between host and guest in a VM
-exec --no-startup-id spice-vdagent
+#exec --no-startup-id spice-vdagent
+#exec --no-startup-id vmware-user
 
 
 ### Applications ###
