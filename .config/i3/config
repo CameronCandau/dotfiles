@@ -11,10 +11,9 @@ set $wm_setting_key_down	j
 set $wm_setting_key_up	k
 set $wm_setting_key_right	l
 
-set $wm_setting_app_terminal      	  ~/WezTerm*.AppImage
+set $wm_setting_app_terminal      	  WezTerm*.AppImage
 set $wm_setting_app_browser       	  brave-browser
-set $wm_setting_app_text_editor		 		code
-set $wm_setting_app_notes							~/Obsidian*.AppImage
+set $wm_setting_app_text_editor		 	code
 set $wm_setting_app_launcher      	  rofi -show drun
 set $wm_setting_app_compositor    	  picom
 
@@ -87,7 +86,9 @@ focus_wrapping no
 ### STARTUP ###
 
 # Adjust mouse speed 
-exec_always xinput --set-prop "Kingston HyperX Pulsefire Surge" 'libinput Accel Speed' -1
+exec_always xinput --set-prop "pointer:Kingston HyperX Pulsefire Surge" 'libinput Accel Speed' -1
+exec_always xinput --set-prop "pointer:Kingston HyperX Pulsefire Core" 'libinput Accel Speed' -1
+exec_always xinput --set-prop "pointer:Logitech M720 Triathlon Multi-Device Mouse" 'libinput Accel Speed' -1
 
 # Set mouse buttons (alternate between left and right handed)
 #exec_always [ $(($(date +%-d) % 2)) -eq 0 ] && xmodmap -e "pointer = 1 2 3" || xmodmap -e "pointer = 3 2 1"
@@ -117,19 +118,22 @@ exec --no-startup-id spice-vdagent
 
 ### Applications ###
 # Start a terminal emulator
-bindsym $mod+n exec $wm_setting_app_terminal 
+bindsym $mod+t exec $wm_setting_app_terminal 
 
 # Open specific profile with Brave Browser
 bindsym $mod+v exec $wm_setting_app_browser --profile-directory="Default"
 
+# RMPC (Music Player Client)
+bindsym $mod+m exec $wm_setting_app_terminal start rmpc
+
 # Open Anki
 bindsym $mod+a exec ~/anki*/anki
 
-# Open notes
-bindsym $mod+$alt+n exec $wm_setting_app_notes
+# Open Obsidian
+bindsym $mod+o exec Obsidian*.AppImage
 
 # Open Lunatask
-bindsym $mod+t exec ~/Lunatask*.AppImage
+bindsym $mod+$smod+l exec Lunatask*.AppImage/
 
 # Open file manager
 bindsym $mod+f exec thunar ~
@@ -138,7 +142,7 @@ bindsym $mod+f exec thunar ~
 bindsym $mod+c exec $wm_setting_app_text_editor
 
 # Open password manager
-bindsym $mod+b exec ~/.config/i3/scripts/bwmenu
+bindsym $mod+p exec KeePassXC*.AppImage
 
 # Start a program launcher
 bindsym $mod+d exec $wm_setting_app_launcher
@@ -153,7 +157,7 @@ bindsym XF86Launch5 exec vclip --no-prompt
 bindsym $mod+s exec ~/.config/i3/scripts/rofi-kill-process.sh
 
 # Run a window compositor (for effects like transparency or full VSync)
-exec_always --no-startup-id $wm_setting_app_compositor
+#exec_always --no-startup-id $wm_setting_app_compositor
 
 ### STARTUP APPLICATIONS ###
 
@@ -299,12 +303,9 @@ tray_output      $bar_setting_trayoutput
 }
 
 bindsym $mod+$alt+b exec --no-startup-id i3-msg bar mode toggle
-#bindsym $mod+Shift+m exec --no-startup-id i3-msg bar mode toggle
 
 ### FLOATING EXCEPTIONS ###
 for_window [class="PenTablet" instance="PenTablet"] floating enable
-#for_window [class="Bitwarden" instance="bitwarden"] floating enable
-#for_window [class="discord" instance="discord"] floating enable
 
 ### Miscellaneous settings ###
 # Set the font used for titlebars (which are hidden here)
@@ -313,12 +314,11 @@ font $wm_setting_font
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-
 # Enter fullscreen mode for the focused window
-bindsym $mod+x fullscreen toggle
+bindsym $mod+$smod+f fullscreen toggle
 
 # Toggle between tiling and floating
-bindsym $mod+$smod+f floating toggle
+# bindsym $mod+$smod+f floating toggle
 
 # Kill the focused window
 bindsym $mod+BackSpace kill
@@ -332,7 +332,7 @@ bindsym $mod+$smod+u restart
 # Power menu (F13)
 bindsym XF86Tools exec ~/.config/i3/scripts/rofi-power.sh
 
-# Open i3 config directory in text editor
+# Open dotfiles directory in text editor
 bindsym $mod+$smod+c exec $wm_setting_app_text_editor ~/dotfiles
 
 # Exit i3 (logs you out of your X session)
