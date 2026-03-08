@@ -11,7 +11,7 @@ set $wm_setting_key_down	j
 set $wm_setting_key_up	k
 set $wm_setting_key_right	l
 
-set $wm_setting_app_terminal      	  WezTerm*.AppImage
+set $wm_setting_app_terminal      	  ~/.local/bin/WezTerm*.AppImage
 set $wm_setting_app_browser       	  brave-browser
 set $wm_setting_app_text_editor		 	code
 set $wm_setting_app_launcher      	  rofi -show drun
@@ -131,10 +131,10 @@ bindsym $mod+m exec $wm_setting_app_terminal start rmpc
 bindsym $mod+a exec ~/anki*/anki
 
 # Open Obsidian
-bindsym $mod+o exec Obsidian*.AppImage
+bindsym $mod+o exec ~/.local/bin/Obsidian*.AppImage
 
 # Open Lunatask
-bindsym $mod+$smod+l exec Lunatask*.AppImage/
+bindsym $mod+$smod+l exec ~/.local/bin/Lunatask*.AppImage/
 
 # Open file manager
 bindsym $mod+f exec thunar ~
@@ -143,7 +143,7 @@ bindsym $mod+f exec thunar ~
 bindsym $mod+c exec $wm_setting_app_text_editor
 
 # Open password manager
-bindsym $mod+p exec KeePassXC*.AppImage
+bindsym $mod+p exec ~/.local/bin/KeePassXC*.AppImage
 
 # Start a program launcher
 bindsym $mod+d exec $wm_setting_app_launcher
