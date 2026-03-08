@@ -136,6 +136,9 @@ bindsym $mod+o exec ~/.local/bin/Obsidian*.AppImage
 # Open Lunatask
 bindsym $mod+$smod+l exec ~/.local/bin/Lunatask*.AppImage/
 
+# Open Nextcloud
+bindsym $mod+n exec ~/.local/bin/Nextcloud*.AppImage
+
 # Open file manager
 bindsym $mod+f exec thunar ~
 
