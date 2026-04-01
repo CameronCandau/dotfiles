@@ -122,7 +122,7 @@ exec_always nohup flameshot &
 bindsym $mod+t exec $wm_setting_app_terminal 
 
 # Open specific profile with Brave Browser
-bindsym $mod+v exec $wm_setting_app_browser --profile-directory="Default"
+bindsym $mod+b exec $wm_setting_app_browser --profile-directory="Default"
 
 # RMPC (Music Player Client)
 bindsym $mod+m exec $wm_setting_app_terminal start rmpc

@@ -9,7 +9,8 @@ rofi:
   use_markup: true
 sources:
   directories:
-  - ~/OSCP-Methodology
+  - ~/projects/personal/oscp/OSCP-Methodology/
+  - ~/Nextcloud/cheatsheets/
   file_patterns:
   - '*.md'
   - '*.markdown'

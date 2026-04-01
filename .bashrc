@@ -57,9 +57,9 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\[\033[00m\]\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\w\$ '
 fi
 unset color_prompt force_color_prompt
 
@@ -115,3 +115,24 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+script-io() {
+    local label="${1:-session}"
+    local dir="$HOME/tmux-logs/script/$(date +%F)"
+    local stem
+
+    mkdir -p "$dir" || return 1
+    stem="$dir/${label}_$(date +%H%M%S)"
+
+    script --quiet --flush --log-io "${stem}.io" --log-timing "${stem}.timing"
+}
+
+if command -v tmux >/dev/null 2>&1 \
+    && [ -z "$TMUX" ] \
+    && [ -z "$SSH_CONNECTION" ] \
+    && [ -n "${WEZTERM_PANE:-}" ] \
+    && [ "${TMUX_AUTOSTART:-1}" = "1" ]; then
+    exec tmux new-session -A -s main
+fi
+
+export EDITOR=nvim
