@@ -127,11 +127,21 @@ script-io() {
     script --quiet --flush --log-io "${stem}.io" --log-timing "${stem}.timing"
 }
 
+tmux-scratch() {
+    local session="scratch-$(date +%Y%m%d-%H%M%S)"
+
+    tmux new-session -s "$session" \; set-option -t "$session" destroy-unattached on \; rename-window quick
+}
+
 if command -v tmux >/dev/null 2>&1 \
     && [ -z "$TMUX" ] \
     && [ -z "$SSH_CONNECTION" ] \
     && [ -n "${WEZTERM_PANE:-}" ] \
     && [ "${TMUX_AUTOSTART:-1}" = "1" ]; then
+    if [ "${TMUX_SESSION_MODE:-main}" = "scratch" ]; then
+        exec tmux-scratch
+    fi
+
     exec tmux new-session -A -s main
 fi
 

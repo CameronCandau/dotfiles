@@ -53,6 +53,13 @@ config.keys = {
     mods = 'ALT|SHIFT|CTRL',
     action = act.ScrollToPrompt(1),
   },
+  {
+    key = 'q',
+    mods = 'ALT|SHIFT|CTRL',
+    action = act.SpawnCommandInNewWindow {
+      args = { 'env', 'TMUX_SESSION_MODE=scratch', 'bash', '-i' },
+    },
+  },
 }
 
 wezterm.on('update-status', function(window, _)
