@@ -134,7 +134,7 @@ bindsym $mod+a exec ~/anki*/anki
 bindsym $mod+o exec ~/.local/bin/Obsidian*.AppImage
 
 # Open Lunatask
-bindsym $mod+$smod+l exec ~/.local/bin/Lunatask*.AppImage/
+bindsym $mod+$smod+l exec ~/.local/bin/Lunatask*.AppImage
 
 # Open Nextcloud
 bindsym $mod+n exec ~/.local/bin/Nextcloud*.AppImage

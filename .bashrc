@@ -116,33 +116,16 @@ if ! shopt -oq posix; then
   fi
 fi
 
-script-io() {
+term-log() {
     local label="${1:-session}"
-    local dir="$HOME/tmux-logs/script/$(date +%F)"
-    local stem
+    local dir="$HOME/logs"
 
     mkdir -p "$dir" || return 1
-    stem="$dir/${label}_$(date +%H%M%S)"
-
-    script --quiet --flush --log-io "${stem}.io" --log-timing "${stem}.timing"
+    script -a "$dir/${label}.log"
 }
-
-tmux-scratch() {
-    local session="scratch-$(date +%Y%m%d-%H%M%S)"
-
-    tmux new-session -s "$session" \; set-option -t "$session" destroy-unattached on \; rename-window quick
-}
-
-if command -v tmux >/dev/null 2>&1 \
-    && [ -z "$TMUX" ] \
-    && [ -z "$SSH_CONNECTION" ] \
-    && [ -n "${WEZTERM_PANE:-}" ] \
-    && [ "${TMUX_AUTOSTART:-1}" = "1" ]; then
-    if [ "${TMUX_SESSION_MODE:-main}" = "scratch" ]; then
-        exec tmux-scratch
-    fi
-
-    exec tmux new-session -A -s main
-fi
 
 export EDITOR=nvim
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

@@ -27,7 +27,7 @@ session_name="$(sanitize "$(tmux display-message -p -t "$pane_id" '#S')")"
 window_name="$(sanitize "$(tmux display-message -p -t "$pane_id" '#W')")"
 pane_index="$(tmux display-message -p -t "$pane_id" '#P')"
 timestamp="$(date +%H%M%S)"
-log_dir="$HOME/tmux-logs/output/$(date +%F)/$session_name"
+log_dir="$HOME/logs/tmux/$(date +%F)/$session_name"
 log_file="$log_dir/${window_name}_pane${pane_index}_${timestamp}.log"
 
 mkdir -p "$log_dir"
