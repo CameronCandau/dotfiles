@@ -1,19 +1,44 @@
-cache:
-  auto_cleanup: true
-  directory: null
-  enabled: true
+default_workspace: oscp
+
+workspaces:
+  oscp:
+    directories:
+      - ~/projects/personal/oscp/OSCP-Methodology/
+    file_patterns:
+      - "*.md"
+      - "*.markdown"
+    files: []
+    recursive: true
+
+  references:
+    directories:
+      - ~/projects/personal/references/
+    file_patterns:
+      - "*.md"
+      - "*.markdown"
+    files: []
+    recursive: true
+  private_references:
+    directories:
+      - ~/Nextcloud/private_references/
+    file_patterns:
+      - "*.md"
+      - "*.markdown"
+    files: []
+    recursive: true 
+
 rofi:
   args: []
   max_lines: 15
   prompt: Commands
   use_markup: true
-sources:
-  directories:
-  - ~/projects/personal/oscp/OSCP-Methodology/
-  - ~/Nextcloud/cheatsheets/
-  file_patterns:
-  - '*.md'
-  - '*.markdown'
-  files: []
-  recursive: true
+  window_width: 60
+  element_height: 2
+
+cache:
+  auto_cleanup: true
+  directory: null
+  enabled: true
+
+substitute_variables: false
 variables: {}
