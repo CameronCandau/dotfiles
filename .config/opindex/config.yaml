@@ -10,22 +10,14 @@ workspaces:
     files: []
     recursive: true
 
-  references:
+  cheatsheets:
     directories:
-      - ~/projects/personal/references/
+      - ~/Nextcloud/cheatsheets/
     file_patterns:
       - "*.md"
       - "*.markdown"
     files: []
     recursive: true
-  private_references:
-    directories:
-      - ~/Nextcloud/private_references/
-    file_patterns:
-      - "*.md"
-      - "*.markdown"
-    files: []
-    recursive: true 
 
 rofi:
   args: []

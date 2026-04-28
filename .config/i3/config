@@ -155,9 +155,9 @@ bindsym $mod+d exec $wm_setting_app_launcher
 bindsym $mod+$smod+s exec flameshot gui
 
 # Open copy/paste helper
-bindsym XF86Launch5 exec vclip
-bindsym $mod+v exec vclip
-bindsym $mod+$smod+v exec vclip --workspace-menu
+bindsym XF86Launch5 exec opindex
+bindsym $mod+v exec opindex
+bindsym $mod+$smod+v exec opindex --workspace-menu
 
 # Kill a running process using rofi
 bindsym $mod+s exec ~/.config/i3/scripts/rofi-kill-process.sh
