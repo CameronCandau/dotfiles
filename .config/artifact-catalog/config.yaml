@@ -1,0 +1,5 @@
+{
+  "catalog_root": "~/artifact-catalog-content",
+  "payloads_dir": "~/tools/payloads",
+  "default_backend": "github-releases"
+}
