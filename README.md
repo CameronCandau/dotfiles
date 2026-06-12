@@ -1,6 +1,6 @@
 # dotfiles
 
-Shared Home Manager flake for Cameron's reusable dotfiles and desktop modules.
+Shared Home Manager flake for my reusable dotfiles and desktop modules.
 
 Modules:
 

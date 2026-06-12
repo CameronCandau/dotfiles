@@ -1,5 +1,5 @@
 {
-  description = "Cameron's Home Manager dotfiles and reusable desktop modules";
+  description = "Home Manager dotfiles and reusable desktop modules";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";

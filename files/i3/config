@@ -125,7 +125,7 @@ bindsym $mod+t exec $wm_setting_app_terminal
 bindsym $mod+b exec $wm_setting_app_browser --profile-directory="Default"
 
 # RMPC (Music Player Client)
-bindsym $mod+m exec $wm_setting_app_terminal start rmpc
+bindsym $mod+m exec alacritty -e rmpc
 
 # Open Anki
 bindsym $mod+a exec ~/anki*/anki
