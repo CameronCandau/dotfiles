@@ -1,34 +1,30 @@
-# My dotfiles
+# dotfiles
 
-This directory contains the dotfiles for my system
+Shared Home Manager flake for Cameron's reusable dotfiles and desktop modules.
 
-## Requirements
+Modules:
 
-Ensure you have the following installed on your system
+- `homeModules.core`
+  Shared shell/editor/tmux/nvim/starship state that is independent of X11 or Wayland.
+- `homeModules.x11Userland`
+  X11-era userland choices such as Alacritty and X clipboard tools.
+- `homeModules.desktopI3`
+  i3 support assets and packages: scripts, i3status, and wallpapers.
+- `homeModules.classicI3`
+  The classic i3 and rofi configs copied from the existing dotfiles.
+- `homeModules.waylandBase`
+  Minimal Wayland-oriented terminal/clipboard/screenshot layer for future Niri or similar work.
 
-### Git
+Intended usage:
 
+```nix
+imports = [
+  inputs.dotfiles.homeModules.core
+  inputs.dotfiles.homeModules.x11Userland
+  inputs.dotfiles.homeModules.desktopI3
+  inputs.dotfiles.homeModules.classicI3
+];
 ```
-apt install git
-```
 
-### Stow
-
-```
-apt install stow
-```
-
-## Installation
-
-First, check out the dotfiles repo in your $HOME directory using git
-
-```
-$ git clone git@github.com/Cam-Can-Do/dotfiles.git
-$ cd dotfiles
-```
-
-then use GNU stow to create symlinks
-
-```
-$ stow .
-```
+The repo is now the Home Manager-owned source of truth for the shared shell,
+editor, terminal, and desktop configuration layers.
