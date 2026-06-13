@@ -5,6 +5,7 @@
     fd
     git
     jq
+    nerd-fonts.jetbrains-mono
     ripgrep
     unzip
     xfce.xfce4-terminal
