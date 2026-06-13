@@ -3,7 +3,7 @@ default_workspace: oscp
 workspaces:
   oscp:
     directories:
-      - ~/projects/personal/oscp/OSCP-Methodology/
+      - ~/projects/personal/oscp/Pentest-Reference/
     file_patterns:
       - "*.md"
       - "*.markdown"
@@ -12,7 +12,8 @@ workspaces:
 
   cheatsheets:
     directories:
-      - ~/Nextcloud/cheatsheets/
+      - ~/projects/personal/Cheatsheets/
+      - ~/Nextcloud/private_references/
     file_patterns:
       - "*.md"
       - "*.markdown"
@@ -32,5 +33,5 @@ cache:
   directory: null
   enabled: true
 
-substitute_variables: false
+substitute_variables: true
 variables: {}
