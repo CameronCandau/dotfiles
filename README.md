@@ -5,7 +5,15 @@ Shared Home Manager flake for my reusable dotfiles and desktop modules.
 Modules:
 
 - `homeModules.core`
-  Shared shell/editor/tmux/nvim/starship state that is independent of X11 or Wayland.
+  Aggregate shared shell/editor/tmux state that is independent of X11 or Wayland.
+- `homeModules.sharedCli`
+  Shared shell, bash, starship, direnv, eza, zoxide, and yazi state.
+- `homeModules.neovim`
+  Shared Neovim program enablement plus the managed config tree.
+- `homeModules.opindex`
+  Shared `opindex` config for hosts that install and use it outside the Kali VM.
+- `homeModules.tmux`
+  Shared tmux program settings and helper scripts.
 - `homeModules.x11Userland`
   X11-era userland choices such as Alacritty and X clipboard tools.
 - `homeModules.desktopI3`
