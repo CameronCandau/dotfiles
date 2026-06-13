@@ -12,7 +12,7 @@ set $wm_setting_key_up	k
 set $wm_setting_key_right	l
 
 set $wm_setting_app_terminal      	  xfce4-terminal
-set $wm_setting_app_launcher      	  rofi -show drun
+set $wm_setting_app_launcher      	  rofi -show combi
 
 # Catppuccin Mocha for i3: https://github.com/catppuccin/i3/blob/main/themes/catppuccin-mocha
 set $rosewater #f5e0dc
