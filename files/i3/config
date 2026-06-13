@@ -13,6 +13,7 @@ set $wm_setting_key_right	l
 
 set $wm_setting_app_terminal      	  xfce4-terminal
 set $wm_setting_app_launcher      	  rofi -show combi
+set $wm_setting_app_browser		firefox
 
 # Catppuccin Mocha for i3: https://github.com/catppuccin/i3/blob/main/themes/catppuccin-mocha
 set $rosewater #f5e0dc
@@ -99,11 +100,11 @@ exec --no-startup-id sh -c 'command -v spice-vdagent >/dev/null 2>&1 && { pgrep 
 
 
 ### Applications ###
-# Start a terminal emulator
 bindsym $mod+t exec $wm_setting_app_terminal 
 
-# Start a program launcher
 bindsym $mod+d exec $wm_setting_app_launcher
+
+bindsym $mod+b exec $wm_setting_app_browser
 
 # Take screenshot
 bindsym $mod+$smod+s exec flameshot gui
