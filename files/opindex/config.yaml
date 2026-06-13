@@ -20,6 +20,14 @@ workspaces:
     files: []
     recursive: true
 
+  dotfiles:
+    directories:
+      - ~/projects/personal/dotfiles/
+    file_patterns:
+      - "*.opindex.md"
+    files: []
+    recursive: true
+
 rofi:
   args: []
   max_lines: 15
