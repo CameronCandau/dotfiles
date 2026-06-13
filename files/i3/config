@@ -11,7 +11,7 @@ set $wm_setting_key_down	j
 set $wm_setting_key_up	k
 set $wm_setting_key_right	l
 
-set $wm_setting_app_terminal      	  alacritty
+set $wm_setting_app_terminal      	  xfce4-terminal
 set $wm_setting_app_launcher      	  rofi -show drun
 
 # Catppuccin Mocha for i3: https://github.com/catppuccin/i3/blob/main/themes/catppuccin-mocha
