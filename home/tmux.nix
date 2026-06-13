@@ -6,15 +6,8 @@
     clock24 = true;
     keyMode = "vi";
     mouse = true;
-    shortcut = "a";
-    baseIndex = 1;
     escapeTime = 0;
     historyLimit = 100000;
     extraConfig = builtins.readFile ../files/tmux/tmux.conf;
-  };
-
-  home.file.".config/tmux/scripts" = {
-    recursive = true;
-    source = ../files/tmux/scripts;
   };
 }

@@ -12,10 +12,7 @@ set $wm_setting_key_up	k
 set $wm_setting_key_right	l
 
 set $wm_setting_app_terminal      	  alacritty
-set $wm_setting_app_browser       	  brave-browser
-set $wm_setting_app_text_editor		 	code
 set $wm_setting_app_launcher      	  rofi -show drun
-set $wm_setting_app_compositor    	  picom
 
 # Catppuccin Mocha for i3: https://github.com/catppuccin/i3/blob/main/themes/catppuccin-mocha
 set $rosewater #f5e0dc
@@ -85,68 +82,25 @@ focus_wrapping no
 
 ### STARTUP ###
 
-# Adjust mouse speed 
-exec_always xinput --set-prop "pointer:Kingston HyperX Pulsefire Surge" 'libinput Accel Speed' -1
-exec_always xinput --set-prop "pointer:Kingston HyperX Pulsefire Core" 'libinput Accel Speed' -1
-exec_always xinput --set-prop "pointer:Logitech M720 Triathlon Multi-Device Mouse" 'libinput Accel Speed' -1
-
-# Set mouse buttons (alternate between left and right handed)
-#exec_always [ $(($(date +%-d) % 2)) -eq 0 ] && xmodmap -e "pointer = 1 2 3" || xmodmap -e "pointer = 3 2 1"
-
-# autotiling: https://github.com/nwg-piotr/autotiling
-exec_always ~/.config/i3/scripts/autotiling
-
-# Set displays and resolutions
-exec_always ~/.config/i3/scripts/desk_setup.sh --no-startup-id
+# Load a host-local monitor layout if Arandr has saved one.
+exec_always --no-startup-id sh -c '[ -x "$HOME/.screenlayout/default.sh" ] && "$HOME/.screenlayout/default.sh"'
 
 # Display Wallpaper
 exec_always feh --bg-fill --randomize ~/.config/wallpapers/* --no-startup-id
-#exec_always feh --bg-fill --randomize ~/.config/h_wallpapers/* --no-startup-id
 
-# Start nmcli (needed for ProtonVPN client to work)
+# Start nm-applet for network control
 exec_always nm-applet
-
-# Apply blue light filter
-exec_always redshift -PO 2500
 
 # Required to be able to copy screenshots to clipboard
 exec_always nohup flameshot &
 
 # Copy-paste between host and guest in a VM
-exec --no-startup-id sh -c 'pgrep -x spice-vdagent >/dev/null || exec spice-vdagent'
-#exec --no-startup-id vmware-user
+exec --no-startup-id sh -c 'command -v spice-vdagent >/dev/null 2>&1 && { pgrep -x spice-vdagent >/dev/null || exec spice-vdagent; }'
 
 
 ### Applications ###
 # Start a terminal emulator
 bindsym $mod+t exec $wm_setting_app_terminal 
-
-# Open specific profile with Brave Browser
-bindsym $mod+b exec $wm_setting_app_browser --profile-directory="Default"
-
-# RMPC (Music Player Client)
-bindsym $mod+m exec alacritty -e rmpc
-
-# Open Anki
-bindsym $mod+a exec ~/anki*/anki
-
-# Open Obsidian
-bindsym $mod+o exec ~/.local/bin/Obsidian*.AppImage
-
-# Open Lunatask
-bindsym $mod+$smod+l exec ~/.local/bin/Lunatask*.AppImage
-
-# Open Nextcloud
-bindsym $mod+n exec ~/.local/bin/Nextcloud*.AppImage
-
-# Open file manager
-bindsym $mod+f exec thunar ~
-
-# Open text editor
-bindsym $mod+c exec $wm_setting_app_text_editor
-
-# Open password manager
-bindsym $mod+p exec ~/.local/bin/KeePassXC*.AppImage
 
 # Start a program launcher
 bindsym $mod+d exec $wm_setting_app_launcher
@@ -154,30 +108,12 @@ bindsym $mod+d exec $wm_setting_app_launcher
 # Take screenshot
 bindsym $mod+$smod+s exec flameshot gui
 
-# Open copy/paste helper
-bindsym XF86Launch5 exec opindex
-bindsym $mod+v exec opindex
-bindsym $mod+$smod+v exec opindex --workspace-menu
+# Control the next tiled split orientation explicitly.
+bindsym $mod+v split v
+bindsym $mod+$smod+v split h
 
 # Kill a running process using rofi
 bindsym $mod+s exec ~/.config/i3/scripts/rofi-kill-process.sh
-
-# Run a window compositor (for effects like transparency or full VSync)
-#exec_always --no-startup-id $wm_setting_app_compositor
-
-### STARTUP APPLICATIONS ###
-
-### MEDIA CONTROLS ###
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
-
-bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +10%
-bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 10%-
-
-### MONITORS ###
-set $main_monitor HDMI-1-0
-set $side_monitor eDP-1
 
 ### WORKSPACES ###
 set $ws1  "1"
@@ -190,18 +126,6 @@ set $ws7  "7"
 set $ws8  "8"
 set $ws9  "9"
 set $ws10 "10"
-
-workspace $ws1 output $side_monitor
-workspace $ws2 output $side_monitor
-workspace $ws3 output $side_monitor 
-workspace $ws4 output $side_monitor
-workspace $ws5 output $side_monitor
-
-workspace $ws6 output $main_monitor
-workspace $ws7 output $main_monitor
-workspace $ws8 output $main_monitor
-workspace $ws9 output $main_monitor
-workspace $ws10 output $main_monitor
 
 bindsym $mod+1 workspace $ws1; 
 bindsym $mod+2 workspace $ws2
@@ -225,10 +149,6 @@ bindsym $mod+$alt+7 move container to workspace $ws7; workspace $ws7;
 bindsym $mod+$alt+8 move container to workspace $ws8;	workspace $ws8;
 bindsym $mod+$alt+9 move container to workspace $ws9; workspace $ws9;
 bindsym $mod+$alt+0 move container to workspace $ws10; workspace $ws10;
-
-# Moving window between screens 
-bindsym $mod+$alt+$wm_setting_key_left move container to output left; focus left;
-bindsym $mod+$alt+$wm_setting_key_right move container to output right; focus right;
 
 ### Window sizes and positions ###
 
@@ -310,8 +230,6 @@ tray_output      $bar_setting_trayoutput
 
 bindsym $mod+$alt+b exec --no-startup-id i3-msg bar mode toggle
 
-### FLOATING EXCEPTIONS ###
-for_window [class="PenTablet" instance="PenTablet"] floating enable
 
 ### Miscellaneous settings ###
 # Set the font used for titlebars (which are hidden here)
@@ -329,17 +247,11 @@ bindsym $mod+$smod+f fullscreen toggle
 # Kill the focused window
 bindsym $mod+BackSpace kill
 
-# Invert colors
-bindsym $mod+i exec xrandr-invert-colors -s 0
-
 # Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+$smod+u restart
 
 # Power menu (F13)
 bindsym XF86Tools exec ~/.config/i3/scripts/rofi-power.sh
-
-# Open dotfiles directory in text editor
-bindsym $mod+$smod+c exec $wm_setting_app_text_editor ~/dotfiles
 
 # Exit i3 (logs you out of your X session)
 bindsym $mod+$smod+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"

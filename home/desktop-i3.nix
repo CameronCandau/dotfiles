@@ -2,13 +2,14 @@
 {
   home.packages = with pkgs; [
     arandr
-    brightnessctl
     feh
     flameshot
+    i3lock
     i3status
+    libnotify
+    networkmanagerapplet
     rofi
-    xdotool
-    xorg.xinput
+    xorg.xrandr
   ];
 
   home.file.".config/i3/scripts" = {
