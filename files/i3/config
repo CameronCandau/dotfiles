@@ -225,7 +225,6 @@ tray_output      $bar_setting_trayoutput
     urgent_workspace   $base  $red      $crust
   }
   workspace_buttons yes
-  workspace_min_width 240
 }
 
 bindsym $mod+$alt+b exec --no-startup-id i3-msg bar mode toggle
