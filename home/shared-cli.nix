@@ -38,6 +38,8 @@
         . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
       fi
 
+      export PATH="$HOME/.local/bin:$HOME/.nix-profile/bin:$PATH"
+
       export HISTCONTROL=ignoreboth
       shopt -s histappend checkwinsize
       HISTSIZE=1000
