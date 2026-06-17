@@ -169,14 +169,13 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
 -- Minimal tab-page workflow using Neovim's built-in tabs.
-vim.keymap.set('n', '<leader><tab>n', '<cmd>tabnew<CR>', { desc = 'Tab: [N]ew' })
-vim.keymap.set('n', '<leader><tab>c', '<cmd>tabclose<CR>', { desc = 'Tab: [C]lose' })
+vim.keymap.set('n', '<leader><tab>c', '<cmd>tabnew<CR>', { desc = 'Tab: [C]reate' })
+vim.keymap.set('n', '<leader><tab>x', '<cmd>tabclose<CR>', { desc = 'Tab: Close' })
 vim.keymap.set('n', '<leader><tab>o', '<cmd>tabonly<CR>', { desc = 'Tab: [O]nly' })
 
-for i = 1, 9 do
-  vim.keymap.set('n', '<leader><tab>' .. i, '<cmd>tabnext ' .. i .. '<CR>', { desc = 'Tab: Go to ' .. i })
+for i = 0, 9 do
+  vim.keymap.set('n', '<leader><tab>' .. i, '<cmd>tabnext ' .. (i + 1) .. '<CR>', { desc = 'Tab: Go to ' .. i })
 end
-vim.keymap.set('n', '<leader><tab>0', '<cmd>tabnext 10<CR>', { desc = 'Tab: Go to 10' })
 
 local terminal_state = {
   buf = nil,
