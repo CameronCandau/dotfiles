@@ -141,6 +141,7 @@ vim.opt.timeoutlen = 300
 -- Configure how new splits should be opened
 vim.opt.splitright = true
 vim.opt.splitbelow = true
+vim.opt.showtabline = 2
 
 -- Sets how neovim will display certain whitespace characters in the editor.
 --  See `:help 'list'`
@@ -166,6 +167,71 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+
+-- Minimal tab-page workflow using Neovim's built-in tabs.
+vim.keymap.set('n', '<leader><tab>n', '<cmd>tabnew<CR>', { desc = 'Tab: [N]ew' })
+vim.keymap.set('n', '<leader><tab>c', '<cmd>tabclose<CR>', { desc = 'Tab: [C]lose' })
+vim.keymap.set('n', '<leader><tab>o', '<cmd>tabonly<CR>', { desc = 'Tab: [O]nly' })
+
+for i = 1, 9 do
+  vim.keymap.set('n', '<leader><tab>' .. i, '<cmd>tabnext ' .. i .. '<CR>', { desc = 'Tab: Go to ' .. i })
+end
+vim.keymap.set('n', '<leader><tab>0', '<cmd>tabnext 10<CR>', { desc = 'Tab: Go to 10' })
+
+local terminal_state = {
+  buf = nil,
+}
+
+local function is_valid_buf(buf)
+  return buf and vim.api.nvim_buf_is_valid(buf)
+end
+
+local function find_terminal_window(buf)
+  if not is_valid_buf(buf) then
+    return nil
+  end
+
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    if vim.api.nvim_win_get_buf(win) == buf then
+      return win
+    end
+  end
+
+  return nil
+end
+
+local function open_terminal()
+  local existing_win = find_terminal_window(terminal_state.buf)
+  if existing_win then
+    vim.api.nvim_set_current_win(existing_win)
+  else
+    vim.cmd 'botright 12split'
+    if is_valid_buf(terminal_state.buf) then
+      vim.api.nvim_win_set_buf(0, terminal_state.buf)
+    else
+      vim.cmd 'terminal'
+      terminal_state.buf = vim.api.nvim_get_current_buf()
+    end
+  end
+
+  vim.cmd 'startinsert'
+end
+
+local function toggle_terminal()
+  local existing_win = find_terminal_window(terminal_state.buf)
+  if existing_win then
+    vim.api.nvim_win_close(existing_win, true)
+    return
+  end
+
+  open_terminal()
+end
+
+vim.keymap.set({ 'n', 't' }, '<leader>tt', toggle_terminal, { desc = '[T]oggle [T]erminal' })
+vim.keymap.set('n', '<leader>tn', function()
+  terminal_state.buf = nil
+  open_terminal()
+end, { desc = '[T]erminal [N]ew' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -201,6 +267,17 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
   callback = function()
     vim.highlight.on_yank()
+  end,
+})
+
+vim.api.nvim_create_autocmd('TermOpen', {
+  desc = 'Use editor-like local settings in terminal buffers',
+  group = vim.api.nvim_create_augroup('kickstart-terminal-mode', { clear = true }),
+  callback = function(event)
+    vim.opt_local.number = false
+    vim.opt_local.relativenumber = false
+    vim.opt_local.signcolumn = 'no'
+    vim.bo[event.buf].buflisted = false
   end,
 })
 
@@ -317,6 +394,7 @@ require('lazy').setup({
         { '<leader>d', group = '[D]ocument' },
         { '<leader>r', group = '[R]ename' },
         { '<leader>s', group = '[S]earch' },
+        { '<leader><tab>', group = '[T]abs' },
         { '<leader>w', group = '[W]orkspace' },
         { '<leader>t', group = '[T]oggle' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
