@@ -710,10 +710,11 @@ require('lazy').setup({
             },
           },
         },
+      }
 
-        harper_ls = {
-          filetypes = { 'markdown' },
-        },
+      servers.harper_ls = {
+        cmd = { '/etc/profiles/per-user/user/bin/harper-ls', '--stdio' },
+        filetypes = { 'markdown' },
       }
 
       -- Ensure the servers and tools above are installed
@@ -727,6 +728,9 @@ require('lazy').setup({
       -- You can add other tools here that you want Mason to install
       -- for you, so that they are available from within Neovim.
       local ensure_installed = vim.tbl_keys(servers or {})
+      ensure_installed = vim.tbl_filter(function(server)
+        return server ~= 'harper_ls'
+      end, ensure_installed)
       vim.list_extend(ensure_installed, {
         'prettierd', -- Used to format Markdown and other web text
         'stylua', -- Used to format Lua code
@@ -734,6 +738,9 @@ require('lazy').setup({
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       require('mason-lspconfig').setup {
+        automatic_enable = {
+          exclude = { 'harper_ls' },
+        },
         handlers = {
           function(server_name)
             local server = servers[server_name] or {}
@@ -745,6 +752,11 @@ require('lazy').setup({
           end,
         },
       }
+
+      local harper_server = vim.deepcopy(servers.harper_ls)
+      harper_server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, harper_server.capabilities or {})
+      vim.lsp.config('harper_ls', harper_server)
+      vim.lsp.enable 'harper_ls'
     end,
   },
 
@@ -1005,15 +1017,12 @@ require('lazy').setup({
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   { import = 'custom.plugins' },
 
-  require 'custom.plugins.neoscroll',
-  require 'custom.plugins.smear-cursor',
-
   -- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
   -- Or use telescope!
   -- In normal mode type `<space>sh` then write `lazy.nvim-plugin`
   -- you can continue same window with `<space>sr` which resumes last telescope search
 }, {
-  lockfile = vim.fn.stdpath 'state' .. '/lazy-lock.json',
+  lockfile = vim.fn.stdpath 'config' .. '/lazy-lock.json',
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
     -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table

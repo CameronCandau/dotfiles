@@ -4,9 +4,7 @@
 -- See the kickstart.nvim README for more information
 return {
   {
-    'kylechui/nvim-surround',
-    version = '*',
-    event = 'VeryLazy',
-    opts = {},
+    'tpope/vim-fugitive',
+    cmd = { 'Git', 'Gdiffsplit', 'Gvdiffsplit', 'Gedit', 'Gwrite', 'Gread', 'Gclog', 'Gblame' },
   },
 }
