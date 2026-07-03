@@ -82,6 +82,7 @@
   home.packages = with pkgs; [
     harper
     yazi
+    gh
   ];
 
   home.file.".config/starship.toml".source = ../files/starship.toml;
