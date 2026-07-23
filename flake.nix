@@ -12,6 +12,7 @@
   outputs = { self, ... }: {
     homeModules = {
       core = import ./home/core.nix;
+      artifactLocker = import ./home/artifact-locker.nix;
       sharedCli = import ./home/shared-cli.nix;
       neovim = import ./home/neovim.nix;
       opindex = import ./home/opindex.nix;

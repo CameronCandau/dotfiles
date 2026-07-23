@@ -1,0 +1,4 @@
+{
+  "local_artifact_dir": "~/tools/payloads",
+  "oci_repository": "public.ecr.aws/o7l3z5i2/artifact-locker"
+}
