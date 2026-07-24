@@ -40,10 +40,29 @@
 
       export PATH="$HOME/.local/bin:$HOME/.nix-profile/bin:$PATH"
 
-      export HISTCONTROL=ignoreboth
-      shopt -s histappend checkwinsize
-      HISTSIZE=1000
-      HISTFILESIZE=2000
+      # Append to $HISTFILE, don't overwrite
+      shopt -s histappend
+
+      # Increase max length of session history
+      HISTSIZE=100000
+      # Increase max length of history file
+      HISTFILESIZE=200000
+
+      # Don't ignore/delete duplicates, just ignore commands starting with space
+      export HISTCONTROL=ignorespace
+      # Log when commands were run
+      HISTTIMEFORMAT='%F %T  '
+
+      # Save commands with multiple lines as one history entry
+      shopt -s cmdhist
+      shopt -s lithist
+
+      # At every prompt, append current session's history to $HISTFILE. Allows all new shells to open with an updated copy of history from all other shells.
+      PROMPT_COMMAND='history -a'
+
+      # Search history by the current line prefix with up/down arrows.
+      bind '"\e[A": history-search-backward'
+      bind '"\e[B": history-search-forward'
 
       term-log() {
         local label="''${1:-session}"
@@ -67,6 +86,11 @@
         command rm -f -- "$tmp"
       }
     '';
+  };
+
+  programs.fzf = {
+    enable = true;
+    enableBashIntegration = true;
   };
 
   programs.direnv = {
