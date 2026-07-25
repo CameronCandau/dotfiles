@@ -41,5 +41,5 @@ cache:
   directory: null
   enabled: true
 
-substitute_variables: true
+substitute_variables: false
 variables: {}
