@@ -92,6 +92,7 @@ vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
+vim.g.sleuth_nix_heuristics = false
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
@@ -266,6 +267,16 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
   callback = function()
     vim.highlight.on_yank()
+  end,
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'nix',
+  callback = function()
+    vim.opt_local.expandtab = true
+    vim.opt_local.shiftwidth = 2
+    vim.opt_local.softtabstop = 2
+    vim.opt_local.tabstop = 2
   end,
 })
 
@@ -761,6 +772,9 @@ require('lazy').setup({
       harper_server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, harper_server.capabilities or {})
       vim.lsp.config('harper_ls', harper_server)
       vim.lsp.enable 'harper_ls'
+
+      vim.lsp.config('nixd', { capabilities = capabilities })
+      vim.lsp.enable 'nixd'
     end,
   },
 
@@ -979,7 +993,7 @@ require('lazy').setup({
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      ensure_installed = {},
+      ensure_installed = { 'nix' },
       -- Autoinstall languages that are not installed
       auto_install = false,
       highlight = {
